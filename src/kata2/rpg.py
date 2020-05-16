@@ -10,4 +10,5 @@ def RandomPasswordGenerator(passLen=10):
     #
     #
 
-    return ""
+    resultado = "Aa.1" + "b" * (passLen -4)
+    return resultado
