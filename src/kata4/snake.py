@@ -62,7 +62,8 @@ class Game():
 
     # función de salida
     def exit(self, event, pygame):
-        self.run = False
+        if self.run == False:
+            pygame.quit()
 
     # Posición aleatorio entre el ranto [0,49] * 10  
     def food_spawn(self):
@@ -78,6 +79,8 @@ class Game():
         # Si la fruta está en una posición del snake        
         if self.food_pos == snake.position:
             self.score+=1
+            last = snake.body[-1]
+            snake.body.append((last[0]-10,last[1]))
             self.food_spawn()
         else:
             snake.body.pop()
@@ -104,9 +107,9 @@ class Game():
 def main():
     # Descomentar para lanzar el juego en local
     # Comentar para validar con el oráculo
-    #pygame.init()
-    #play_surface = pygame.display.set_mode((500, 500))
-    #fps = pygame.time.Clock()
+    pygame.init()
+    play_surface = pygame.display.set_mode((500, 500))
+    fps = pygame.time.Clock()
 
     snake = Snake()
     game = Game()
@@ -138,5 +141,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-#main()
-#pygame.quit()
+main()
+pygame.quit()
