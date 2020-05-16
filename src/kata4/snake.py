@@ -1,10 +1,6 @@
 import pygame, sys, time, random
 from pygame.locals import *
 
-#pygame.init()
-#play_surface = pygame.display.set_mode((500, 500))
-#fps = pygame.time.Clock()
-
 class Snake():
     position = [100,50]
     body = [[100,50], [90,50],[80,50]]
@@ -13,7 +9,15 @@ class Snake():
 
     # Manejo del pressed [KEYDOWN] de las teclas [K_RIGHT - K_LEFT - K_UP -K_DOWN ]
     def controller(self, event, pygame):
-        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                self.change = "RIGHT"
+            elif event.key == pygame.K_LEFT:
+                self.change = "LEFT"
+            elif event.key == pygame.K_UP:
+                self.change = "UP"
+            elif event.key == pygame.K_DOWN:
+                self.change = "DOWN"
     # Controla el cambio de  las direcciones
     # Orientaciones
     # Vertical      -> Movimientos [RIGHT - LEFT]
@@ -28,7 +32,15 @@ class Snake():
         #
         #
         #
-
+        self.direction = self.change
+        if self.direction == "RIGHT":
+            self.position[0]+=10
+        if self.direction == "LEFT":
+            self.position[0]-=10
+        if self.direction == "UP":
+            self.position[1]-=10
+        if self.direction == "DOWN":
+            self.position[1]+=10
         #
         #
         #
@@ -50,12 +62,11 @@ class Game():
 
     # función de salida
     def exit(self, event, pygame):
-        #
-        #
-    
+        self.run = False
+
     # Posición aleatorio entre el ranto [0,49] * 10  
     def food_spawn(self):
-        self.food_pos = 0
+        self.food_pos = [ 10*random.choice(range(0,49)), 10*random.choice(range(0,49))]
 
     # Si colisionas con una fruta, sumas 1
     # Sino decrementas en 1 el body del snake
@@ -64,8 +75,12 @@ class Game():
         #    
         #    
         #
-        #  
-
+        # Si la fruta está en una posición del snake        
+        if self.food_pos == snake.position:
+            self.score+=1
+            self.food_spawn()
+        else:
+            snake.body.pop()
     # Mensajes de salida cuando el snake muere
     # Posición snake[0] >= 500 ó snake[0] <= 0                  -> Muere
     # Posición snake[1] >= 500 ó snake[1] <= 0                  -> Muere
@@ -74,7 +89,8 @@ class Game():
         #
         #
         #
-        
+        if snake.position[0] >= 500 or snake.position[0] <= 0 or  snake.position[1] >= 500 or snake.position[1] <= 0:
+            self.run = False 
         #
         #
         #
@@ -88,12 +104,13 @@ class Game():
 def main():
     # Descomentar para lanzar el juego en local
     # Comentar para validar con el oráculo
-    # pygame.init()
-    # play_surface = pygame.display.set_mode((500, 500))
-    # fps = pygame.time.Clock()
+    #pygame.init()
+    #play_surface = pygame.display.set_mode((500, 500))
+    #fps = pygame.time.Clock()
 
     snake = Snake()
     game = Game()
+
 
     # Bucle principal
     while game.run:
@@ -121,5 +138,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-# main()
-# pygame.quit()
+#main()
+#pygame.quit()
