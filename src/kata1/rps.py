@@ -9,8 +9,6 @@ options = ["Piedra", "Papel", "Tijeras"]
 #'Ganaste!'
 #'Perdiste!'
 def quienGana(player, ai):
-    player = player.lower()
-    ai = ai.lower()
     resultado = ""
     if player == options[0]:
         if ai == options[0]:
