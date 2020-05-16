@@ -10,26 +10,28 @@ options = ["Piedra", "Papel", "Tijeras"]
 #'Perdiste!'
 def quienGana(player, ai):
     resultado = ""
-    if player == options[0]:
-        if ai == options[0]:
+    player = player.lower()
+    ai = ai.lower()
+    if player == options[0].lower():
+        if ai == options[0].lower():
             resultado = "Empate!"
-        elif ai == options[1]:
+        elif ai == options[1].lower():
             resultado = "Perdiste!"
-        elif ai == options[2]:
+        elif ai == options[2].lower():
             resultado = "Ganaste!"
-    elif player == options[1]:
-        if ai == options[0]:
+    elif player == options[1].lower():
+        if ai == options[0].lower():
             resultado = "Ganaste!"
-        elif ai == options[1]:
+        elif ai == options[1].lower():
             resultado = "Empate!"
-        elif ai == options[2]:
+        elif ai == options[2].lower():
             resultado = "Perdiste!"
-    elif player == options[2]:
-        if ai == options[0]:
+    elif player == options[2].lower():
+        if ai == options[0].lower():
             resultado = "Perdiste!"
-        elif ai == options[1]:
+        elif ai == options[1].lower():
             resultado = "Ganaste!"
-        elif ai == options[2]:
+        elif ai == options[2].lower():
             resultado = "Empate!"
     return resultado
 
@@ -45,4 +47,3 @@ def Game():
     winner = quienGana(player, ai)
 
     print(winner)
-
